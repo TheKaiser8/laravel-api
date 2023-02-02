@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 // creo rotta (/api/projects) che restituisca tutti i dati dei progetti in formato JSON
 Route::get('projects', [ProjectController::class, 'index']);
+
+// rotta /api/projects/et-quae-nostrum-quas-ea-ipsam-iure (slug d'esempio)
+Route::get('projects/{slug}', [ProjectController::class, 'show']);

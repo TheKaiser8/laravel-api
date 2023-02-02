@@ -15,4 +15,19 @@ class ProjectController extends Controller
 
         return $projects;
     }
+
+    // metodo che gestisce rotta show con gestione degli errori
+    public function show($slug)
+    {
+        try {
+            $project = Project::where('slug', $slug)->with('type', 'technologies')->firstOrFail();
+            return $project;
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response([
+                'error' => '404 Project not found'
+            ], 404);
+        }
+
+        return $project;
+    }
 }
