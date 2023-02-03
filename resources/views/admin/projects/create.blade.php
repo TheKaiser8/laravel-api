@@ -31,7 +31,24 @@
         </div>
         <div class="mb-3">
             <label for="picture" class="form-label">Immagine</label>
-            <input type="file" class="form-control @error('picture') is-invalid @enderror" id="picture" name="picture" value="{{ old('picture') }}">
+            
+            {{-- preview immagine caricata --}}
+            <div>
+                <img id="preview" width="150" class="img-fluid mb-3"/>
+                <script>
+                    function loadFile(event) {
+                        let reader = new FileReader();
+                        reader.onload = function() {
+                            let preview = document.getElementById('preview');
+                            preview.src = reader.result;
+                        };
+                        reader.readAsDataURL(event.target.files[0]);
+                    };
+                </script>
+            </div>
+            {{-- /preview immagine caricata --}}
+
+            <input type="file" class="form-control @error('picture') is-invalid @enderror" id="picture" name="picture" value="{{ old('picture') }}" onchange="loadFile(event)">
             @error('picture')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
