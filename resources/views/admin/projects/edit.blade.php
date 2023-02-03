@@ -46,11 +46,33 @@
                 </script>
             </div>
             {{-- /preview immagine caricata --}}
-
+            {{-- checkbox no_image --}}
+            @if ($project->picture)
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="no_image" type="checkbox" role="switch" id="no_image">
+                    <label class="form-check-label" for="no_image">Nessuna immagine</label>
+                </div>
+            @endif
+            {{-- checkbox no_image --}}
+            
             <input type="file" class="form-control @error('picture') is-invalid @enderror" id="picture" name="picture" value="{{ old('picture') }}" onchange="loadFile(event)">
             @error('picture')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
+
+            {{-- script checkbox no_image --}}
+            <script>
+                const inputCheckbox = document.getElementById('no_image');
+                const inputFile = document.getElementById('picture');
+                inputCheckbox.addEventListener('change', function() {
+                    if( inputCheckbox.checked ) {
+                        inputFile.disabled = true;
+                    } else {
+                        inputFile.disabled = false;
+                    }
+                });
+            </script>
+            {{-- /script checkbox no_image --}}
         </div>
         <div class="mb-3">
             <label for="type" class="form-label">Tipologia</label>

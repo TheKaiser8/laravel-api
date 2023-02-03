@@ -113,6 +113,12 @@ class ProjectController extends Controller
             $data['picture'] = Storage::disk('public')->put('uploads', $data['picture']);
         }
 
+        // controllo che verifica se viene settata la checkbox per NON caricare alcuna immagine in fase di modifica del progetto
+        if (isset($data['no_image']) && $project->picture) {
+            Storage::disk('public')->delete($project->picture);
+            $project->picture = null;
+        }
+
         $project->update($data);
 
         if (isset($data['technologies'])) {
