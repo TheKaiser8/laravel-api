@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\TypeController;
 use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,6 @@ Route::get('projects', [ProjectController::class, 'index']);
 
 // rotta /api/projects/et-quae-nostrum-quas-ea-ipsam-iure (slug d'esempio)
 Route::get('projects/{slug}', [ProjectController::class, 'show']);
+
+// creo rotta (/api/types) che restituisca tutti i dati delle tipologie in formato JSON
+Route::get('types', [TypeController::class, 'index']);
