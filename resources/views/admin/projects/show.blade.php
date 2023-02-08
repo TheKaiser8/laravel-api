@@ -35,12 +35,33 @@
                     @endforeach
                 </div>
             @endif
-
             <p class="card-text">{{ $project->description }}</p>
-            <div>Cliente:
+            <div class="mb-3">Cliente:
                 <strong>{{ $project->customer }}</strong>
             </div>
         </div>
+    </div>
+    <div class="mt-3">
+        <h4 class="fw-bold">Commenti:</h4>
+        @if($project->reviews->isNotEmpty())
+            <ul>
+                @foreach ($project->reviews as $review)
+                <li class="mb-3">
+                    <h5>{{ $review->name }}</h5>
+                    <p class="mb-2">{{ $review->content }}</p>
+                    <form action="{{ route('admin.reviews.destroy', $review) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn btn-light"><i class="fa-solid fa-trash me-1"></i> Elimina</button>
+                    </form>
+                </li>
+                @endforeach
+            </ul>
+        @else
+            <p>Ancora nessun commento per questo progetto</p>
+        @endif
+
     </div>
     <a href="{{ route('admin.projects.index') }}" class="btn btn-secondary my-3">Torna ai progetti</a>
 @endsection

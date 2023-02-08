@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\TechnologyController;
@@ -31,6 +32,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('projects', ProjectController::class)->parameters(['projects' => 'project:slug']);
     Route::resource('types', TypeController::class)->parameters(['types' => 'type:slug']);
     Route::resource('technologies', TechnologyController::class)->parameters(['technologies' => 'technology:slug']);
+
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 });
 
 // Tutte le rotte di autenticazione (login, logout, register, password, ecc..)
